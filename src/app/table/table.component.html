@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="d-flex mt-3 mb-3">
+    <div class="col me-5">
+      <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Search..."
+      [(ngModel)]="searchText"
+      (input)="performSearch()">
+    </div>
+    <div class="col">
+      <button 
+      type="button" 
+      class="btn btn-primary" 
+      routerLink="/body/new-record">New Record</button>
+    </div>
+  </div>
+</div>
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S/N</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Occupation</th>
+      <th scope="col">Age</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr 
+    
+    *ngFor="let record of records; let i = index">
+      <td scope="row">{{i+1}}</td>
+      <td scope="row">{{record.name}}</td>
+      <td scope="row">{{record.email}}</td>
+      <td scope="row">{{record.occupation}}</td>
+      <td scope="row">{{record.age}}</td>
+      <td scope="row" >
+        <button class="btn btn-outline-success me-3" (click)="onEdit(record, i)">Edit</button>
+        <button class="btn btn-outline-danger" (click)="onDeleteConfirm(deleteConfirmationModal, i)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<ng-template #deleteConfirmationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm Deletion</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete this record?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('confirm')">Yes</button>
+  </div>
+</ng-template>
